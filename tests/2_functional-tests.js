@@ -169,7 +169,7 @@ suite('Functional Tests', function() {
 
   // On Gomix we'll use this setting
   /** ### Copy your project's url here  ### **/
-  Browser.site = 'https://sincere-cone.gomix.me'; 
+  Browser.site = 'https://chai-testing-uaaeu.glitch.me'; 
   
   // If you are testing on a local environment replace the line above  with 
   // Browser.localhost('example.com', (process.env.PORT || 3000));
@@ -256,7 +256,10 @@ suite('Functional Tests', function() {
 
             // assert that the element(s) 'span#dates' exist and their count is 1
             
-            assert.fail();
+            browser.assert.success();
+            browser.assert.text('span#name', 'Cristoforo');
+            browser.assert.text('span#surname', 'Colombo');
+            browser.assert.element('span#dates', 1)
             
             done();   // It's an async test, so we have to call 'done()''
           });
@@ -265,14 +268,22 @@ suite('Functional Tests', function() {
       
       /** Try it again... No help this time **/
       test('submit "surname" : "Vespucci" - write your e2e test...', function(done) {
-
+        browser
+          .fill('surname', 'Vespucci')
+          .pressButton('submit', function(){
+            
+            browser.assert.success();
+            browser.assert.text('span#name', 'Amerigo');
+            browser.assert.text('span#surname', 'Vespucci');
+            browser.assert.element('span#dates', 1)
+            done();
+        })
         // fill the form, and submit.
         // assert that status is OK 200
         // assert that the text inside the element 'span#name' is 'Amerigo'
         // assert that the text inside the element 'span#surname' is 'Vespucci'
         // assert that the element(s) 'span#dates' exist and their count is 1
-        assert.fail();
-        done();
+
       
       });
     });
